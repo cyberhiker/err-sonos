@@ -17,15 +17,14 @@ class ErrSonos(BotPlugin):
         prettyDevices = ''
 
         for zone in soco.discover():
-            sonos = by_name(player_name)
-            
+
             state = zone.get_current_transport_info()['current_transport_state']
             track = zone.get_current_track_info()
 
             if state == 'PLAYING':
-                prettyDevices += zone.player_name: + 'Playing *' + track['title'] + '* by ' + track['artist']
+                prettyDevices += zone.player_name + ' - Playing *' + track['title'] + '* by ' + track['artist'] + '\n'
             else:
-                prettyDevices += zone.player_name + ": " + state.title() + "\n"
+                prettyDevices += zone.player_name + ' - ' + state.title() + '\n'
 
         return prettyDevices
 
