@@ -31,7 +31,7 @@ class ErrSonos(BotPlugin):
             sonos.play()
             track = sonos.get_current_track_info()
 
-            return('Playing ' + track['title'] + ' by ' + track['artist'])
+            return('Playing *' + track['title'] + '* by ' + track['artist'])
 
         else:
             return 'No Player Name Specified'
@@ -45,6 +45,7 @@ class ErrSonos(BotPlugin):
         if player_name is not None:
             from soco.discovery import by_name
             sonos = by_name(player_name)
+            sonos.pause()
 
             return 'Paused'
 
