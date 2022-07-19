@@ -50,6 +50,24 @@ class ErrSonos(BotPlugin):
             return 'No IP Specified'
 
 
+    @botcmd(split_args_with=' ')  # flags a command
+    def volume(self, msg, args):  # a command callable with !
+
+        direction = args[0]
+
+        if direction is not None:
+            sonos = soco(ip_address)
+
+            if direction == 'up':
+                sonos.volume += 10
+
+            elif direction == 'down':
+                sonos.volume -= 10
+
+                return 'Adjusted Down'
+
+        else:
+            return 'No IP Specified'
 
 """
         if sys.argv[1] == 'play':
