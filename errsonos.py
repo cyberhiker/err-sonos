@@ -24,7 +24,7 @@ class ErrSonos(BotPlugin):
         ip_address = args[0]
 
         if ip_address is not None:
-            sonos = soco(ip_address)
+            sonos = SoCo(ip_address)
 
             sonos.play()
             track = sonos.get_current_track_info()
@@ -41,7 +41,7 @@ class ErrSonos(BotPlugin):
         ip_address = args[0]
 
         if ip_address is not None:
-            sonos = soco(ip_address)
+            sonos = SoCo(ip_address)
             sonos.pause()
 
             return 'Paused'
