@@ -78,7 +78,7 @@ class ErrSonos(BotPlugin):
             if direction == 'up':
                 sonos.volume += 10
 
-                return 'Adjusted Down'
+                return 'Adjusted Up'
 
             elif direction == 'down':
                 sonos.volume -= 10
@@ -93,7 +93,4 @@ class ErrSonos(BotPlugin):
             sonos.next()
         elif sys.argv[1] == 'previous':
             sonos.previous()
-
-        else:
-            print('Ran')
 """

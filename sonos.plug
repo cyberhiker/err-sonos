@@ -1,6 +1,6 @@
 [Core]
-Name = ErrSonos
-Module = errsonos
+Name = Sonos
+Module = sonos
 
 [Documentation]
 Description = Control Sonos speakers via ErrBot.
