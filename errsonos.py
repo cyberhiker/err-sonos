@@ -5,13 +5,16 @@ import sys
 
 class ErrSonos(BotPlugin):
     """
-    This is a very basic plugin to try out your new installation and get you started.
-    Feel free to tweak me to experiment with Errbot.
-    You can find me in your init directory in the subdirectory plugins.
+    Limited controlling of your Sonos speakers.
     """
 
     @botcmd
     def list(self, msg, args):
+        """
+        List available players 
+        """
+
+        prettyDevices = ''
 
         for zone in soco.discover():
             prettyDevices += zone.player_name + "\n"
@@ -21,6 +24,9 @@ class ErrSonos(BotPlugin):
 
     @botcmd(split_args_with=' ')  # flags a command
     def play(self, msg, args):  # a command callable with !
+        """
+        Play [player name] from list command, use " " around spaced players.
+        """
 
         player_name = args[0]
 
@@ -39,6 +45,9 @@ class ErrSonos(BotPlugin):
 
     @botcmd(split_args_with=' ')  # flags a command
     def pause(self, msg, args):  # a command callable with !
+        """
+        Pause [player name] from list command, use " " around spaced players.
+        """
 
         player_name = args[0]
 
@@ -55,11 +64,16 @@ class ErrSonos(BotPlugin):
 
     @botcmd(split_args_with=' ')  # flags a command
     def volume(self, msg, args):  # a command callable with !
+        """
+        Increment Volume [player name] [up/down]
+        """
 
-        direction = args[0]
+        player_name = args[0]
+        direction = args[1]
 
-        if direction is not None:
-            sonos = soco(ip_address)
+        if player_name is not None:
+            from soco.discovery import by_name
+            sonos = by_name(player_name)
 
             if direction == 'up':
                 sonos.volume += 10
