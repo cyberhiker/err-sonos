@@ -20,6 +20,7 @@ class ErrSonos(BotPlugin):
             sonos = by_name(player_name)
             
             state = zone.get_current_transport_info()['current_transport_state']
+            track = zone.get_current_track_info()
 
             if state == 'PLAYING':
                 prettyDevices += zone.player_name: + 'Playing *' + track['title'] + '* by ' + track['artist']
