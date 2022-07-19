@@ -16,28 +16,28 @@ class ErrSonos(BotPlugin):
         return devices
 
 
-    @botcmd('ip_address', type=str)  # flags a command
+    @arg_botcmd('ip_address', type=str)  # flags a command
     def play(self, msg, ip_address=None):  # a command callable with !
 
-        if ip_address not None:
+        if ip_address is not None:
             sonos = SoCo(ip_address)
 
             sonos.play()
             track = sonos.get_current_track_info()
-            
+
             return('Playing ' + track['title'] + ' by ' + track['artist'])
-        
+
         else:
             return 'No IP Specified'
 
 
-    @botcmd('ip_address', type=str)  # flags a command
+    @arg_botcmd('ip_address', type=str)  # flags a command
     def pause(self, msg, ip_address=None):  # a command callable with !
-        
-        if ip_address not None:
+
+        if ip_address is not None:
             sonos = SoCo(ip_address)
             sonos.pause()
-        
+
             return 'Paused'
 
         else:
@@ -45,7 +45,7 @@ class ErrSonos(BotPlugin):
 
 
 
-'''
+"""
         if sys.argv[1] == 'play':
             sonos.play()
         elif sys.argv[1] == 'pause':
@@ -63,4 +63,4 @@ class ErrSonos(BotPlugin):
 
         track = sonos.get_current_track_info()
         print(track['title'])
-''
+"""
