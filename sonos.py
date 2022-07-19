@@ -22,7 +22,7 @@ class ErrSonos(BotPlugin):
             state = zone.get_current_transport_info()['current_transport_state']
 
             if state == 'PLAYING':
-                prettyDevices += zone.player_name: + 'Playing *' + track['title'] + '* by ' + track['artist'])
+                prettyDevices += zone.player_name: + 'Playing *' + track['title'] + '* by ' + track['artist']
             else:
                 prettyDevices += zone.player_name + ": " + state.title() + "\n"
 
