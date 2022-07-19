@@ -1,0 +1,9 @@
+[Core]
+Name = ErrSonos
+Module = errsonos
+
+[Documentation]
+Description = Control Sonos speakers via ErrBot.
+
+[Python]
+Version = 3
