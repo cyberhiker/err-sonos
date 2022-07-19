@@ -1,4 +1,5 @@
 from errbot import BotPlugin, botcmd
+import soco
 from soco import SoCo
 import sys
 
@@ -12,7 +13,8 @@ class ErrSonos(BotPlugin):
     @botcmd
     def list(self, msg, args):
 
-        devices = soco.discover()
+        devices = {device.player_name: device for device in soco.discover()}
+
         return devices
 
 
@@ -22,7 +24,7 @@ class ErrSonos(BotPlugin):
         ip_address = args[0]
 
         if ip_address is not None:
-            sonos = SoCo(ip_address)
+            sonos = soco(ip_address)
 
             sonos.play()
             track = sonos.get_current_track_info()
@@ -37,9 +39,9 @@ class ErrSonos(BotPlugin):
     def pause(self, msg, args):  # a command callable with !
 
         ip_address = args[0]
-        
+
         if ip_address is not None:
-            sonos = SoCo(ip_address)
+            sonos = soco(ip_address)
             sonos.pause()
 
             return 'Paused'
