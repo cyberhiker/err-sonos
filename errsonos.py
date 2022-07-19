@@ -13,18 +13,20 @@ class ErrSonos(BotPlugin):
     @botcmd
     def list(self, msg, args):
 
-        devices = {device.player_name: device for device in soco.discover()}
+        for zone in soco.discover():
+            prettyDevices += zone.player_name + "\n"
 
-        return devices
+        return prettyDevices
 
 
     @botcmd(split_args_with=' ')  # flags a command
     def play(self, msg, args):  # a command callable with !
 
-        ip_address = args[0]
+        player_name = args[0]
 
-        if ip_address is not None:
-            sonos = SoCo(ip_address)
+        if player_name is not None:
+            from soco.discovery import by_name
+            sonos = by_name(player_name)
 
             sonos.play()
             track = sonos.get_current_track_info()
@@ -32,22 +34,22 @@ class ErrSonos(BotPlugin):
             return('Playing ' + track['title'] + ' by ' + track['artist'])
 
         else:
-            return 'No IP Specified'
+            return 'No Player Name Specified'
 
 
     @botcmd(split_args_with=' ')  # flags a command
     def pause(self, msg, args):  # a command callable with !
 
-        ip_address = args[0]
+        player_name = args[0]
 
-        if ip_address is not None:
-            sonos = SoCo(ip_address)
-            sonos.pause()
+        if player_name is not None:
+            from soco.discovery import by_name
+            sonos = by_name(player_name)
 
             return 'Paused'
 
         else:
-            return 'No IP Specified'
+            return 'No Player Name Specified'
 
 
     @botcmd(split_args_with=' ')  # flags a command
@@ -61,6 +63,8 @@ class ErrSonos(BotPlugin):
             if direction == 'up':
                 sonos.volume += 10
 
+                return 'Adjusted Down'
+
             elif direction == 'down':
                 sonos.volume -= 10
 
@@ -70,21 +74,11 @@ class ErrSonos(BotPlugin):
             return 'No IP Specified'
 
 """
-        if sys.argv[1] == 'play':
-            sonos.play()
-        elif sys.argv[1] == 'pause':
-            sonos.pause()
         elif sys.argv[1] == 'next':
             sonos.next()
         elif sys.argv[1] == 'previous':
             sonos.previous()
-        elif sys.argv[1] == 'vol_up':
-            sonos.volume += 10
-        elif sys.argv[1] == 'vol_down':
-            sonos.volume -= 10
+
         else:
             print('Ran')
-
-        track = sonos.get_current_track_info()
-        print(track['title'])
 """
