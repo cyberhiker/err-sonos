@@ -16,8 +16,10 @@ class ErrSonos(BotPlugin):
         return devices
 
 
-    @arg_botcmd('ip_address', type=str)  # flags a command
-    def play(self, msg, ip_address=None):  # a command callable with !
+    @botcmd(split_args_with=' ')  # flags a command
+    def play(self, msg, args):  # a command callable with !
+
+        ip_address = args[0]
 
         if ip_address is not None:
             sonos = SoCo(ip_address)
@@ -31,9 +33,11 @@ class ErrSonos(BotPlugin):
             return 'No IP Specified'
 
 
-    @arg_botcmd('ip_address', type=str)  # flags a command
-    def pause(self, msg, ip_address=None):  # a command callable with !
+    @botcmd(split_args_with=' ')  # flags a command
+    def pause(self, msg, args):  # a command callable with !
 
+        ip_address = args[0]
+        
         if ip_address is not None:
             sonos = SoCo(ip_address)
             sonos.pause()
