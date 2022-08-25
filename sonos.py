@@ -1,5 +1,6 @@
 from errbot import BotPlugin, botcmd
 import soco
+import argparse
 from soco import SoCo
 import sys
 
@@ -83,12 +84,12 @@ class ErrSonos(BotPlugin):
             sonos = by_name(player_name)
 
             if direction == 'up':
-                sonos.volume += 10
+                sonos.volume += 5
 
                 return 'Adjusted Up'
 
             elif direction == 'down':
-                sonos.volume -= 10
+                sonos.volume -= 5
 
                 return 'Adjusted Down'
 
