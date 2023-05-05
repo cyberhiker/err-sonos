@@ -2,6 +2,7 @@ from errbot import BotPlugin, botcmd
 import soco
 from soco import SoCo
 import sys
+import morningReminders
 
 class ErrSonos(BotPlugin):
     """
@@ -16,15 +17,15 @@ class ErrSonos(BotPlugin):
 
         prettyDevices = ''
 
-        for zone in soco.discover():
+        for device in soco.discover():
 
-            state = zone.get_current_transport_info()['current_transport_state']
-            track = zone.get_current_track_info()
+            state = device.get_current_transport_info()['current_transport_state']
+            track = device.get_current_track_info()
 
             if state == 'PLAYING':
-                prettyDevices += zone.player_name + ' - Playing *' + track['title'] + '* by ' + track['artist'] + '\n'
+                prettyDevices += device.player_name + ' - Playing *' + track['title'] + '* by ' + track['artist'] + '\n'
             else:
-                prettyDevices += zone.player_name + ' - ' + state.title() + '\n'
+                prettyDevices += device.player_name + ' - ' + state.title() + ' ' + device.group + '\n'
 
         return prettyDevices
 
@@ -94,6 +95,26 @@ class ErrSonos(BotPlugin):
 
         else:
             return 'No IP Specified'
+
+    @botcmd(split_args_with=' ')  # flags a command
+    def morning(self, msg, args):  # a command callable with !
+        """
+        Run morning routine on [player name] from list command, use " " around spaced players.
+        """
+
+        player_name = args[0]
+
+        if player_name is not None:
+            from soco.discovery import by_name
+            device = by_name(player_name)
+            
+            morningReminders.morningReminder()
+
+            track = device.get_current_track_info()
+            return('Playing *' + track['title'] + '*'
+
+        else:
+            return 'No Player Name Specified'
 
 """
         elif sys.argv[1] == 'next':
