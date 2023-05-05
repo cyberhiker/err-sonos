@@ -1,5 +1,6 @@
 from errbot import BotPlugin, botcmd
 import soco
+import argparse
 from soco import SoCo
 import sys
 import morningReminders
@@ -10,7 +11,7 @@ class ErrSonos(BotPlugin):
     """
 
     @botcmd
-    def list(self, msg, args):
+    def sonos_list(self, msg, args):
         """
         List available players 
         """
@@ -31,7 +32,7 @@ class ErrSonos(BotPlugin):
 
 
     @botcmd(split_args_with=' ')  # flags a command
-    def play(self, msg, args):  # a command callable with !
+    def sonos_play(self, msg, args):  # a command callable with !
         """
         Play [player name] from list command, use " " around spaced players.
         """
@@ -52,7 +53,7 @@ class ErrSonos(BotPlugin):
 
 
     @botcmd(split_args_with=' ')  # flags a command
-    def pause(self, msg, args):  # a command callable with !
+    def sonos_pause(self, msg, args):  # a command callable with !
         """
         Pause [player name] from list command, use " " around spaced players.
         """
@@ -71,7 +72,7 @@ class ErrSonos(BotPlugin):
 
 
     @botcmd(split_args_with=' ')  # flags a command
-    def volume(self, msg, args):  # a command callable with !
+    def sonos_volume(self, msg, args):  # a command callable with !
         """
         Increment Volume [player name] [up/down]
         """
@@ -84,12 +85,12 @@ class ErrSonos(BotPlugin):
             sonos = by_name(player_name)
 
             if direction == 'up':
-                sonos.volume += 10
+                sonos.volume += 5
 
                 return 'Adjusted Up'
 
             elif direction == 'down':
-                sonos.volume -= 10
+                sonos.volume -= 5
 
                 return 'Adjusted Down'
 
@@ -117,6 +118,7 @@ class ErrSonos(BotPlugin):
             return 'No Player Name Specified'
 
 """
+	Coming Some Day
         elif sys.argv[1] == 'next':
             sonos.next()
         elif sys.argv[1] == 'previous':
