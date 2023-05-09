@@ -26,7 +26,7 @@ class ErrSonos(BotPlugin):
             if state == 'PLAYING':
                 prettyDevices += device.player_name + ' - Playing *' + track['title'] + '* by ' + track['artist'] + '\n'
             else:
-                prettyDevices += device.player_name + ' - ' + state.title() + ' ' + device.group + '\n'
+                prettyDevices += device.player_name + ' - ' + state.title() + '\n'
 
         return prettyDevices
 
@@ -109,10 +109,10 @@ class ErrSonos(BotPlugin):
             from soco.discovery import by_name
             device = by_name(player_name)
             
-            morningReminders.morningReminder()
+            morningReminders.morningReminder(player_name)
 
             track = device.get_current_track_info()
-            return('Playing *' + track['title'] + '*'
+            return('Playing *' + track['title'] + '*')
 
         else:
             return 'No Player Name Specified'
