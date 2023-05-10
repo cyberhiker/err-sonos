@@ -100,22 +100,9 @@ class ErrSonos(BotPlugin):
     @botcmd(split_args_with=' ')  # flags a command
     def morning(self, msg, args):  # a command callable with !
         """
-        Run morning routine on [player name] from list command, use " " around spaced players.
+        Run morning routine on from list command.
         """
-
-        player_name = args[0]
-
-        if player_name is not None:
-            from soco.discovery import by_name
-            device = by_name(player_name)
-            
-            morningReminders.morningReminder(player_name)
-
-            track = device.get_current_track_info()
-            return('Playing *' + track['title'] + '*')
-
-        else:
-            return 'No Player Name Specified'
+        morningReminders.morningReminder()
 
 """
 	Coming Some Day

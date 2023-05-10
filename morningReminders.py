@@ -46,8 +46,8 @@ def morningReminder(speakerName="Family Room"):
         # print(device.group.coordinator)
         s = device.group.coordinator
     finally:
-        s = device
-    
+        s = device.group.coordinator
+
     print("Reminders will play on:")
     for player in s.group:
         print(player.player_name)
@@ -59,7 +59,9 @@ def morningReminder(speakerName="Family Room"):
     theseSeconds = roundUpTime - datetime.datetime.now()
 
     print("Time reminders will start in " + str(round(theseSeconds.total_seconds(), 0)) + " seconds.")
-    
+
+    device.group.volume = 40
+
     # Wait that long and then
     sleep(theseSeconds.total_seconds())
 
@@ -82,5 +84,7 @@ def morningReminder(speakerName="Family Room"):
         # Wait 5 minutes and then loop around and play the next appropriate time.
         sleep(300)
 
+    device.group.volume = 15
+
 if __name__=="__main__":
-    morningReminder("")
+    morningReminder()
