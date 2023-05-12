@@ -108,8 +108,9 @@ class ErrSonos(BotPlugin):
         if player_name is not None:
             from soco.discovery import by_name
             device = by_name(player_name)
-            
-            morningReminders.morningReminder(player_name)
+
+            print("Player name: " + player_name)
+            morningReminders.morningReminder()
 
             track = device.get_current_track_info()
             return('Playing *' + track['title'] + '*')

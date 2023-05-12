@@ -43,14 +43,15 @@ def morningReminder(speakerName="Family Room"):
     # Find and (if needed) group together the downstairs speakers
     device = by_name(speakerName)
     try:
-        # print(device.group.coordinator)
+        print(device.group.coordinator)
         s = device.group.coordinator
     finally:
-        s = device
+        s = device.group.coordinator
     
-    print("Reminders will play on:")
+    output = "Reminders will play on:\n"
+    
     for player in s.group:
-        print(player.player_name)
+        output = player.player_name + "\n"    
 
     plugin = PlexPlugin(s)
 
@@ -58,7 +59,12 @@ def morningReminder(speakerName="Family Room"):
     roundUpTime = roundTime()
     theseSeconds = roundUpTime - datetime.datetime.now()
 
-    print("Time reminders will start in " + str(round(theseSeconds.total_seconds(), 0)) + " seconds.")
+    # Lower the Bass and Raise the Volume
+
+    output = output + "Time reminders will start in " + str(round(theseSeconds.total_seconds(), 0)) + " seconds."
+
+    print(output)
+    yield(output)
     
     # Wait that long and then
     sleep(theseSeconds.total_seconds())
@@ -71,16 +77,24 @@ def morningReminder(speakerName="Family Room"):
         
         for sound in album:
             if sound.title == datetime.datetime.now().strftime('%-I%M'):
-                print("Playing " + sound.title)
+                output = "Playing " + datetime.datetime.now().strftime('%-I:%M')
+                print(output)
+                yield(output)
                 # Play the appropriate mp3 for that time
                 plugin.play_now(sound)
 
         # Stop after an hour and a quarter
         if count >= 15:
+            output = "Routine Completed at " + datetime.datetime.now().strftime('%-I:%M')
+            print(output)
+            yield(output)
             break
 
         # Wait 5 minutes and then loop around and play the next appropriate time.
         sleep(300)
 
+    # Reset the Bass and Volume Levels
+
+
 if __name__=="__main__":
-    morningReminder("")
+    morningReminder()
