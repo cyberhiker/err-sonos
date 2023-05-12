@@ -100,7 +100,7 @@ class ErrSonos(BotPlugin):
     @botcmd(split_args_with=' ')  # flags a command
     def morning(self, msg, args):  # a command callable with !
         """
-        Run morning routine on [player name] from list command, use " " around spaced players.
+        Run morning routine on from list command, currently hard coded, but should be fixed.
         """
 
         player_name = args[0]

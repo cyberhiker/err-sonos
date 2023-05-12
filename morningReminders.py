@@ -47,9 +47,9 @@ def morningReminder(speakerName="Family Room"):
         s = device.group.coordinator
     finally:
         s = device.group.coordinator
-    
+
     output = "Reminders will play on:\n"
-    
+
     for player in s.group:
         output = player.player_name + "\n"    
 
@@ -66,6 +66,7 @@ def morningReminder(speakerName="Family Room"):
     print(output)
     yield(output)
     
+    device.group.volume = 40
     # Wait that long and then
     sleep(theseSeconds.total_seconds())
 
@@ -94,7 +95,7 @@ def morningReminder(speakerName="Family Room"):
         sleep(300)
 
     # Reset the Bass and Volume Levels
-
+    device.group.volume = 15
 
 if __name__=="__main__":
     morningReminder()
