@@ -101,7 +101,6 @@ class ErrSonos(BotPlugin):
     def morning(self, msg, args):  # a command callable with !
         """
         Run morning routine on from list command, currently hard coded, but should be fixed.
-        """
 
         player_name = args[0]
 
@@ -110,13 +109,15 @@ class ErrSonos(BotPlugin):
             device = by_name(player_name)
 
             print("Player name: " + player_name)
-            morningReminders.morningReminder()
+            
 
             track = device.get_current_track_info()
             return('Playing *' + track['title'] + '*')
 
         else:
             return 'No Player Name Specified'
+        """
+        morningReminders.morningReminder()
 
 """
 	Coming Some Day
