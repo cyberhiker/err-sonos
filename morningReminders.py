@@ -64,8 +64,8 @@ def morningReminder(speakerName="Family Room"):
     output = output + "Time reminders will start in " + str(round(theseSeconds.total_seconds(), 0)) + " seconds."
 
     print(output)
-    
-    device.group.volume = 40
+
+    device.group.volume = 70
     # Wait that long and then
     sleep(theseSeconds.total_seconds())
 
@@ -79,7 +79,7 @@ def morningReminder(speakerName="Family Room"):
             if sound.title == datetime.datetime.now().strftime('%-I%M'):
                 output = "Playing " + datetime.datetime.now().strftime('%-I:%M')
                 print(output)
-                
+                yield output
                 # Play the appropriate mp3 for that time
                 plugin.play_now(sound)
 
@@ -87,8 +87,8 @@ def morningReminder(speakerName="Family Room"):
         if count >= 15:
             output = "Routine Completed at " + datetime.datetime.now().strftime('%-I:%M')
             print(output)
-            
-            break
+
+            return output
 
         # Wait 5 minutes and then loop around and play the next appropriate time.
         sleep(300)
