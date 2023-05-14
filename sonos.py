@@ -117,9 +117,8 @@ class ErrSonos(BotPlugin):
         else:
             return 'No Player Name Specified'
         """
-        yield "Going to sleep"
-        morningReminders.morningReminder()
-        yield "Completed"
+        yield "Running Morning Routine"
+        yield morningReminders.morningReminder()
 
 """
 	Coming Some Day
