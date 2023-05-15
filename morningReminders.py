@@ -79,6 +79,7 @@ def morningReminder(speakerName="Family Room"):
             if sound.title == datetime.datetime.now().strftime('%-I%M'):
                 output = "Playing " + datetime.datetime.now().strftime('%-I:%M')
                 print(output)
+                yield output
                 
                 # Play the appropriate mp3 for that time
                 plugin.play_now(sound)
@@ -94,7 +95,7 @@ def morningReminder(speakerName="Family Room"):
 
     # Reset the Bass and Volume Levels
     device.group.volume = 15
-    return "Morning Routine Completed"
+    return output
 
 if __name__=="__main__":
     print(morningReminder())
