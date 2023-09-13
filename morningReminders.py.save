@@ -83,14 +83,14 @@ def morningReminder(speakerName="Family Room"):
                 # Play the appropriate mp3 for that time
                 plugin.play_now(sound)
 
+        # Wait 5 minutes and then loop around and play the next appropriate tim>
+        sleep(300)
+
         # Stop after an hour and a quarter
-        if count >= 12:
+        if count >= 15:
             output = "Routine Completed at " + datetime.datetime.now().strftime('%-I:%M')
             print(output)
             break
-
-        # Wait 5 minutes and then loop around and play the next appropriate time.
-        sleep(300)
 
     # Reset the Bass and Volume Levels
     device.group.volume = 15
