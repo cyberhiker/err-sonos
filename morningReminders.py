@@ -6,6 +6,7 @@ import soco
 from soco.discovery import by_name
 from plexapi.server import PlexServer
 from soco import SoCo
+from soco.snapshot import Snapshot
 from soco.plugins.plex import PlexPlugin
 
 def roundTime(dt=None, date_delta=datetime.timedelta(minutes=5), to='up'):
@@ -60,29 +61,39 @@ def morningReminder(speakerName="Family Room"):
     theseSeconds = roundUpTime - datetime.datetime.now()
 
     # Lower the Bass and Raise the Volume
-
-
     output = output + "Time reminders will start in " + str(round(theseSeconds.total_seconds(), 0)) + " seconds."
     print(output)
-
-    device.group.volume = 65
+    
     # Wait that long and then
     sleep(theseSeconds.total_seconds())
 
     count = 0
     while True:
         # Setup the Queue and get ready to play
+        # take snapshot of current state
+        snap = Snapshot(s)  # 1) create a Snapshot class for this device
+        snap.snapshot()  # 2) take a snapshot of this device's status
+
+        # Clear what's there to play this.
         s.clear_queue()
         count = count + 1
         
         for sound in album:
             if sound.title == datetime.datetime.now().strftime('%-I%M'):
+                device.group.volume = 65
+                
                 output = "Playing " + datetime.datetime.now().strftime('%-I:%M')
                 print(output)
-                yield output
                 
                 # Play the appropriate mp3 for that time
                 plugin.play_now(sound)
+
+                # Wait for the Alert to Finish
+                sleep(10)
+
+                # Restore previous state of Sonos (with slow fade up)
+                print("reinstating how it was before....")
+                snap.restore(fade=True)
 
         # Stop after an hour and a quarter
         if count >= 15:
@@ -91,7 +102,7 @@ def morningReminder(speakerName="Family Room"):
             break
 
         # Wait 5 minutes and then loop around and play the next appropriate time.
-        sleep(300)
+        sleep(290)
 
     # Reset the Bass and Volume Levels
     device.group.volume = 15
