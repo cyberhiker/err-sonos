@@ -104,8 +104,7 @@ def morningReminder(speakerName="Family Room"):
         # Wait 5 minutes and then loop around and play the next appropriate time.
         sleep(290)
 
-    # Reset the Bass and Volume Levels
-    device.group.volume = 15
+    # End
     return output
 
 if __name__=="__main__":
