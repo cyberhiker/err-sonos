@@ -69,17 +69,18 @@ def morningReminder(speakerName="Family Room"):
 
     count = 0
     while True:
-        # Setup the Queue and get ready to play
-        # take snapshot of current state
-        snap = Snapshot(s)  # 1) create a Snapshot class for this device
-        snap.snapshot()  # 2) take a snapshot of this device's status
-
-        # Clear what's there to play this.
-        s.clear_queue()
         count = count + 1
         
         for sound in album:
             if sound.title == datetime.datetime.now().strftime('%-I%M'):
+
+                # Setup the Queue and get ready to play
+                # take snapshot of current state
+                snap = Snapshot(s)  # 1) create a Snapshot class for this device
+                snap.snapshot()  # 2) take a snapshot of this device's status
+
+                # Clear what's there to play this.
+                s.clear_queue()
                 device.group.volume = 65
                 
                 output = "Playing " + datetime.datetime.now().strftime('%-I:%M')
@@ -89,11 +90,11 @@ def morningReminder(speakerName="Family Room"):
                 plugin.play_now(sound)
 
                 # Wait for the Alert to Finish
-                sleep(10)
+                sleep(5)
 
                 # Restore previous state of Sonos (with slow fade up)
                 print("reinstating how it was before....")
-                snap.restore(fade=True)
+                snap.restore(fade=False)
 
         # Stop after an hour and a quarter
         if count >= 12:
