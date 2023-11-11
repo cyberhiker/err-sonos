@@ -76,16 +76,16 @@ def morningReminder(speakerName="Family Room"):
 
                 # Setup the Queue and get ready to play
                 # take snapshot of current state
-                snap = Snapshot(s)  # 1) create a Snapshot class for this device
+                snap = Snapshot(device)  # 1) create a Snapshot class for this device
                 snap.snapshot()  # 2) take a snapshot of this device's status
 
-                # Clear what's there to play this.
-                s.clear_queue()
-                device.group.volume = 65
-                
                 output = "Playing " + datetime.datetime.now().strftime('%-I:%M')
                 print(output)
+
                 
+                # Clear what's there to play this.
+                device.group.volume = 65
+
                 # Play the appropriate mp3 for that time
                 plugin.play_now(sound)
 
